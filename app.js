@@ -7,7 +7,9 @@ app.get("/", (request, res) => {
     res.render("landing");
 });
 
-
+app.get("/talk of the town", (req, res) => {
+    console.log("rumors");
+});
 
 
 
