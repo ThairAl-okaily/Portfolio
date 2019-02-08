@@ -1,0 +1,17 @@
+
+
+
+<% include partials/header %>
+
+<h1>We are all ears, Hiss a new RUMOR <small>"from behind the wall"</small></h1>
+
+<form action="/talkOfTheTown" method="POST">
+
+    <input type="text" name="name" placholder= "name">
+    <input type="text" name="body" placeholder="bodyOfRumor">
+    <button > Submit </button>
+
+</form>
+
+<a href="/talkOfTheTown"> Go back </a>
+<% include partials/footer %>
