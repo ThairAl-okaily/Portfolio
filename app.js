@@ -17,6 +17,7 @@ let rumors = [
     {id: "4231454", class: "TX" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" }
 ];
 
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
