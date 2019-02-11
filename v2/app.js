@@ -36,7 +36,8 @@ app.set("view engine", "ejs");
 // // SCHEMA SETUP
 var tottSchema = new mongoose.Schema({
     class: String,
-    rumor: String
+    rumor: String,
+    image: String
 });
 
 const Tott = mongoose.model("Tott", tottSchema);
@@ -44,7 +45,8 @@ const Tott = mongoose.model("Tott", tottSchema);
 // Tott.create(
 //     {
 //         class: "VA",  
-//         rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio"
+//         rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio",
+//         image: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.ruralwoodstocklibrary.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fgallery500%2Fpublic%2Fimageattachments%2Foperahouse%2Fpage%2F8811%2Frumors_0.png%3Fitok%3DAFLaZBQY&imgrefurl=https%3A%2F%2Fwww.ruralwoodstocklibrary.com%2Foperahouse%2Fpage%2Fneil-simons-rumors-0&docid=7TwxRrUn5_OPrM&tbnid=vjx9DhMi7zU-JM%3A&vet=10ahUKEwiCrKeQzrLgAhU9HjQIHQhoB18QMwiJASgUMBQ..i&w=315&h=320&hl=en&authuser=0&bih=821&biw=1440&q=rumors&ved=0ahUKEwiCrKeQzrLgAhU9HjQIHQhoB18QMwiJASgUMBQ&iact=mrc&uact=8"
 //     }, function (err, Tott){
 //         if(err){
 //             console.log(err);
@@ -54,7 +56,6 @@ const Tott = mongoose.model("Tott", tottSchema);
 //             console.log(Tott);
 //         }
 //     });
-
 
 
 
@@ -75,7 +76,7 @@ app.get("/talkOfTheTown", (req, res) => {
             console.log(err);
         }
         else {
-            res.render("tott", {rum: allTotts});
+            res.render("index", {rum: allTotts});
         }
     });
 });
@@ -109,6 +110,10 @@ app.get("/talkOfTheTown/new", (req, res) => {
 });
 
 
+app.get("/talkOfTheTown/:id", (req, res) => {
+    res.render("show");
+
+});
 
 // node server
 
