@@ -46,7 +46,7 @@ const Tott = mongoose.model("Tott", tottSchema);
 //     {
 //         class: "VA",  
 //         rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio",
-//         image: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.ruralwoodstocklibrary.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fgallery500%2Fpublic%2Fimageattachments%2Foperahouse%2Fpage%2F8811%2Frumors_0.png%3Fitok%3DAFLaZBQY&imgrefurl=https%3A%2F%2Fwww.ruralwoodstocklibrary.com%2Foperahouse%2Fpage%2Fneil-simons-rumors-0&docid=7TwxRrUn5_OPrM&tbnid=vjx9DhMi7zU-JM%3A&vet=10ahUKEwiCrKeQzrLgAhU9HjQIHQhoB18QMwiJASgUMBQ..i&w=315&h=320&hl=en&authuser=0&bih=821&biw=1440&q=rumors&ved=0ahUKEwiCrKeQzrLgAhU9HjQIHQhoB18QMwiJASgUMBQ&iact=mrc&uact=8"
+//         image: "https://www.photosforclass.com/download/pixabay-1647328?webUrl=https%3A%2F%2Fpixabay.com%2Fget%2Fe833b5082bf6093ed1584d05fb1d4e97e07ee3d21cac104491f9c97ca3ecb0be_960.jpg&user=geralt"
 //     }, function (err, Tott){
 //         if(err){
 //             console.log(err);
@@ -86,7 +86,8 @@ app.post("/talkOfTheTown", (req, res) => {
     // get data from form and add to rumors array
     let name = req.body.name;
     let bodyOfRumor = req.body.body;
-    let newRumor = {class: name, rumor: bodyOfRumor};
+    let media = req.body.image;
+    let newRumor = {class: name, rumor: bodyOfRumor, media: media};
     // rumors.push(newRumor);
     Tott.create(newRumor, (err, newlyRumor) => {
         if(err){
@@ -111,8 +112,14 @@ app.get("/talkOfTheTown/new", (req, res) => {
 
 
 app.get("/talkOfTheTown/:id", (req, res) => {
-    res.render("show");
-
+    Tott.findById(req.params.id, (err, foundRumor) => {
+        if(err) {
+            console.log(err);
+        }
+        else {
+            res.render("show", {Tott: foundRumor});
+        }
+    });
 });
 
 // node server

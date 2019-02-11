@@ -19,10 +19,13 @@
         <% rum.forEach( rum => { %>
           <div class="col-md-3 col-sm-6"> 
               <div class="thumbnail">
+                  <img src=" <%= rum.image %> ">
                     <div class="caption">
-                            <h4> <%= rum.class %> </h5>
+                        <h4> <%= rum.class %> </h5>
                     </div>
-                    <p> <%= rum.rumor %> </p>
+                    <p> 
+                       <a href="/talkOfTheTown/<%= rum._id %>" class="btn btn-primary">More info</a>
+                    </p>
               </div>
           </div>
         <% }); %> 
