@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 
+
 let rumors = [
     {id: "4231423", class: "VA", level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
     {id: "4332223", class: "DC" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
