@@ -41,19 +41,19 @@ var tottSchema = new mongoose.Schema({
 
 const Tott = mongoose.model("Tott", tottSchema);
 
-Tott.create(
-    {
-        class: "VA",  
-        rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio"
-    }, function (err, Tott){
-        if(err){
-            console.log(err);
-        }
-        else {
-            console.log("NEWLY CREATED Tott");
-            console.log(Tott);
-        }
-    });
+// Tott.create(
+//     {
+//         class: "VA",  
+//         rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio"
+//     }, function (err, Tott){
+//         if(err){
+//             console.log(err);
+//         }
+//         else {
+//             console.log("NEWLY CREATED Tott");
+//             console.log(Tott);
+//         }
+//     });
 
 
 
@@ -66,11 +66,18 @@ app.get("/", (request, res) => {
 });
 
 app.get("/talkOfTheTown", (req, res) => {
-    console.log("rumors");
+    // console.log("rumors");
+    // res.render("tott", {rum: rumors});
 
-
-
-    res.render("tott", {rum: rumors});
+    // get all totts and display them 
+    Tott.find({}, (err, allTotts) => {
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.render("tott", {rum: allTotts});
+        }
+    });
 });
 
 
@@ -79,10 +86,19 @@ app.post("/talkOfTheTown", (req, res) => {
     let name = req.body.name;
     let bodyOfRumor = req.body.body;
     let newRumor = {class: name, rumor: bodyOfRumor};
-    rumors.push(newRumor);
+    // rumors.push(newRumor);
+    Tott.create(newRumor, (err, newlyRumor) => {
+        if(err){
+            console.log(err);
+        }
+        else {
+                //redirect back to talk of the town page
+                res.redirect("/talkOfTheTown");
+        }
+    });
+    //great new rumor and add to totts
 
-    //redirect back to talk of the town page
-    res.redirect("/talkOfTheTown");
+
 });
 
 
