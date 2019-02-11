@@ -1,27 +1,66 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
+var express     = require("express"),
+    app         = express(),
+    bodyParser  = require("body-parser"),
+    mongoose    = require("mongoose");
 
 
-let rumors = [
-    {id: "4231423", class: "VA", level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4332223", class: "DC" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4231656", class: "CA" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4231677", class: "NC" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4231454", class: "TX" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4231232", class: "FL" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4231656", class: "CA" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4231677", class: "NC" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4231454", class: "TX" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4231656", class: "CA" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4231677", class: "NC" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
-    {id: "4231454", class: "TX" , level: "0", maxLevel: "0", rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" }
-];
 
 
+
+
+// let rumors = [
+//     {class: "VA",  rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "DC" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "CA" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "NC" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "TX" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "FL" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "CA" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "NC" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "TX" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "CA" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "NC" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
+//     class: "TX" , rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" }
+// ];
+
+
+
+
+// engins 
+mongoose.connect("mongodb://localhost/tott", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
+
+
+// // SCHEMA SETUP
+var tottSchema = new mongoose.Schema({
+    class: String,
+    rumor: String
+});
+
+const Tott = mongoose.model("Tott", tottSchema);
+
+Tott.create(
+    {
+        class: "VA",  
+        rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio"
+    }, function (err, Tott){
+        if(err){
+            console.log(err);
+        }
+        else {
+            console.log("NEWLY CREATED Tott");
+            console.log(Tott);
+        }
+    });
+
+
+
+
+
+
+// routs
 app.get("/", (request, res) => {
     res.render("landing");
 });
@@ -54,6 +93,8 @@ app.get("/talkOfTheTown/new", (req, res) => {
 });
 
 
+
+// node server
 
 const http = require('http');
 const port = 3000;
