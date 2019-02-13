@@ -66,8 +66,6 @@ app.get("/", (request, res) => {
     res.render("landing");
 });
 
-
-
 app.get("/talkOfTheTown", (req, res) => {
     // console.log("rumors");
     // res.render("tott", {rum: rumors});

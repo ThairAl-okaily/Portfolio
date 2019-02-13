@@ -1,0 +1,38 @@
+
+<% include partials/header %>
+<div class="container"></div>
+
+
+
+
+    <header class="jumbotron ">
+        <div class="container">
+            <h1>Welcome to TALK OF THE TOWN!!!</h1>
+            <p>view all the picked up Rumors around you and the world</p>
+            <p>
+                    <a class="btn btn-primary btn-lg" href="/talkOfTheTown/new">Whisper new noise</a>
+            </p>
+        </div>
+    </header>
+
+    <div class="row text-center" style="display: flex; flex-wrap: wrap;">
+        <% rum.forEach( rum => { %>
+          <div class="col-md-3 col-sm-6"> 
+              <div class="thumbnail">
+                  <img src=" <%= rum.image %> ">
+                    <div class="caption">
+                        <h4> <%= rum.class %> </h5>
+                    </div>
+                    <p> 
+                       <a href="/talkOfTheTown/<%= rum._id %>" class="btn btn-primary">More info</a>
+                    </p>
+              </div>
+          </div>
+        <% }); %> 
+    </div>
+
+</div>
+
+
+
+<% include partials/footer %>
