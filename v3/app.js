@@ -1,8 +1,8 @@
-var express     = require("express"),
+const express     = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
-    mongoose    = require("mongoose");
-
+    mongoose    = require("mongoose"),
+    Tott        = require("./models/tott");
 
 
 
@@ -33,14 +33,6 @@ app.set("view engine", "ejs");
 
 
 
-// // SCHEMA SETUP
-var tottSchema = new mongoose.Schema({
-    class: String,
-    rumor: String,
-    image: String
-});
-
-const Tott = mongoose.model("Tott", tottSchema);
 
 // Tott.create(
 //     {
