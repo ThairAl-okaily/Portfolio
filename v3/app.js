@@ -1,12 +1,13 @@
-const express     = require("express"),
+const express   = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
-    Tott        = require("./models/tott");
+    Tott        = require("./models/tott"),
+    seedDb    = require("./seeds");
 
 
 
-
+seedDb();
 
 // let rumors = [
 //     {class: "VA",  rumor: "sed nulla eum vero expedita ex delectus voluptates rem at neque quos facere sequi unde optio" },
