@@ -6,7 +6,7 @@ var express     = require("express"),
 const Tott = require("./models/tott");
 const Comment = require("./models/comment");
 
-
+app.use(express.static(__dirname + "/public"));
 
 
 
