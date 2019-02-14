@@ -13,12 +13,9 @@
             <%= Tott.rumor %>
         </p>
 
-        <% Tott.comments.forEach( function(coment) { %>
+        <% Tott.comments.forEach( function(comment) { %>
             <p>
-                <strong>
-                     <%= coment.author %>
-                </strong>
-                 - <%= coment.text %>
+                <%= comment.auther %> - <%= comment.text %>
             </p>
         <% }) %> 
 
