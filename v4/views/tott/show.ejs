@@ -1,27 +1,52 @@
 
 <% include ../partials/header %>
+<div class="container">
 
-    <div class="container"></div>
-
-        <p>
-            <%= Tott.class %>
-        </p>
-
-        <img src="<%= Tott.image %>" alt="">
-
-        <p>
-            <%= Tott.rumor %>
-        </p>
-        <p>
-            <a class="btn btn-success" href="/talkOfTheTown/<%= Tott._id %>/comments/new">add new comment</a>
-        </p>
-
-        <% Tott.comments.forEach( function(comment) { %>
-            <p>
-                <%= comment.auther %> - <%= comment.text %>
-            </p>
-        <% }) %> 
-
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Talk Of The Town </p>
+            <div class="list-group">
+                <li class="list-group-item active">info</li>
+                <li class="list-group-item">info</li>
+                <li class="list-group-item">info</li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= Tott.image %>" alt="">
+                <div class="caption">
+                    <div class="clearfix" >
+                        <h2 class="float-right">9.3 hot</h2>
+                        <h1 class="float-left"> <a href=""><%= Tott.class %></a></h1>
+                    </div>
+                    <p >  <%= Tott.rumor %> </p>
+                    <div class="clearfix" >
+                        <h6 class="text-danger float-right">reviws num</h6>
+                        <h6 class="text-danger float-left">****** 3.5 stars</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <div class=" clearfix">
+                    <button type="button" class="btn btn-primary btn-sm btn-block" href="/talkOfTheTown/<%= Tott._id %>/comments/new">add new comment</button>
+                </div>
+                <hr>
+                <% Tott.comments.forEach( function(comment) { %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>
+                                <%= comment.auther %>
+                            </strong>
+                            <span class="float-right">10 days ago</span>
+                            <p>
+                                <%= comment.text %>
+                            </p>
+                        </div>
+                    </div>
+                <% }) %> 
+            </div>
+        </div>
     </div>
-
+    </div>
+</div>
 <% include ../partials/footer %>
