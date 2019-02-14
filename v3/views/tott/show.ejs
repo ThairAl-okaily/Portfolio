@@ -1,5 +1,5 @@
 
-<% include partials/header %>
+<% include ../partials/header %>
 
     <div class="container"></div>
 
@@ -12,6 +12,9 @@
         <p>
             <%= Tott.rumor %>
         </p>
+        <p>
+            <a class="btn btn-success" href="/talkOfTheTown/<%= Tott._id %>/comments/new">add new comment</a>
+        </p>
 
         <% Tott.comments.forEach( function(comment) { %>
             <p>
@@ -21,4 +24,4 @@
 
     </div>
 
-<% include partials/footer %>
+<% include ../partials/footer %>

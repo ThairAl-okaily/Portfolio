@@ -144,7 +144,7 @@ app.get("/talkOfTheTown", (req, res) => {
             console.log(err);
         }
         else {
-            res.render("index", {rum: allTotts});
+            res.render("tott/index", {rum: allTotts});
         }
     });
 });
@@ -173,9 +173,7 @@ app.post("/talkOfTheTown", (req, res) => {
 
 
 app.get("/talkOfTheTown/new", (req, res) => {
-    res.render("new.ejs");
-
-
+    res.render("tott/new");
 });
 
 
@@ -185,10 +183,53 @@ app.get("/talkOfTheTown/:id", (req, res) => {
             console.log(err);
         }
         else {
-            res.render("show", {Tott: foundRumor});
+            res.render("tott/show", {Tott: foundRumor});
         }
     });
 });
+
+
+
+////             ////
+/// COMMENT ROUTS///
+////            ////
+
+app.get("/talkOfTheTown/:id/comments/new", function (req, res) {
+    Tott.findById(req.params.id, (err, tott) => {
+        if(err) {
+            console.log(err);
+        }
+        else {
+            // res.render("new.ejs");
+            res.render("comments/new", {tott: tott});
+        }
+    });
+
+});
+
+
+app.post("/talkOfTheTown/:id", function (req, res) {
+    Tott.findById(req.params.id, (err, tott) => {
+        if(err) {
+            console.log(err);
+            res.redirect("/tott");
+        }
+        else {
+            Comment.create(req.body.comments, function (er, com) {
+                if(er) {
+                    console.log(er);
+                } 
+                else {
+                    tott.comments.push(com);
+                    tott.save();
+                    res.redirect("/talkOfTheTown/" + tott._id );
+                }
+            });
+        }
+    });
+});
+
+
 
 // node server
 
