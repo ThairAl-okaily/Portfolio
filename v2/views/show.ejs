@@ -1,15 +1,27 @@
 
 <% include partials/header %>
-<div class="container"></div>
 
+    <div class="container"></div>
 
+        <p>
+            <%= Tott.class %>
+        </p>
 
+        <img src="<%= Tott.image %>" alt="">
 
-<p><%= Tott.class %></p>
-<img src="<%= Tott.image %>" alt="">
-<p><%= Tott.rumor %></p>
+        <p>
+            <%= Tott.rumor %>
+        </p>
 
+        <% Tott.comments.forEach( function(coment) { %>
+            <p>
+                <strong>
+                     <%= coment.author %>
+                </strong>
+                 - <%= coment.text %>
+            </p>
+        <% }) %> 
 
+    </div>
 
-</div>
 <% include partials/footer %>

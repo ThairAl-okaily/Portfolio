@@ -180,7 +180,7 @@ app.get("/talkOfTheTown/new", (req, res) => {
 
 
 app.get("/talkOfTheTown/:id", (req, res) => {
-    Tott.findById(req.params.id, (err, foundRumor) => {
+    Tott.findById(req.params.id).populate("comments").exec((err, foundRumor) => {
         if(err) {
             console.log(err);
         }
