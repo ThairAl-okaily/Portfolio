@@ -7,8 +7,6 @@ var express     = require("express"),
     passportLM    = require("passport-local-mongoose"),
     expressSession   = require("express-session");
 
-    
-
 
 const Tott = require("./models/tott");
 const Comment = require("./models/comment");
