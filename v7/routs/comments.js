@@ -34,6 +34,11 @@ router.post("/", isLoggedIn, function (req, res) {
                     console.log(er);
                 } 
                 else {
+                    // add user name and id to comments
+                    comment.auther.id = req.user._id;
+                    comment.auther.username = req.user.username;
+                    //save comment
+                    com.save();
                     tott.comments.push(com);
                     tott.save();
                     res.redirect("/talkOfTheTown/" + tott._id );
@@ -49,7 +54,9 @@ function isLoggedIn (req, res, nxt){
     if(req.isAuthenticated()){
         return nxt();
     }
+    else {
     res.redirect("/login");
+    }
 }
 
 
