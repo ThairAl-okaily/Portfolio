@@ -6,7 +6,8 @@ var Tott        = require("../models/tott");
 
 
 
-router.get("/talkOfTheTown", (req, res) => {
+//index rout // show all totts
+router.get("/", (req, res) => {
     // console.log("rumors");
     // res.render("tott", {rum: rumors});
 
@@ -21,8 +22,8 @@ router.get("/talkOfTheTown", (req, res) => {
     });
 });
 
-
-router.post("/talkOfTheTown", (req, res) => {
+//CREAT - add new talk
+router.post("/", (req, res) => {
     // get data from form and add to rumors array
     let name = req.body.name;
     let bodyOfRumor = req.body.body;
@@ -43,13 +44,14 @@ router.post("/talkOfTheTown", (req, res) => {
 
 });
 
-
-router.get("/talkOfTheTown/new", (req, res) => {
+//NEW - show form to creat new talk
+router.get("/new", (req, res) => {
     res.render("tott/new");
 });
 
 
-router.get("/talkOfTheTown/:id", (req, res) => {
+//SHOW - show exact talk info 
+router.get("/:id", (req, res) => {
     Tott.findById(req.params.id).populate("comments").exec((err, foundRumor) => {
         if(err) {
             console.log(err);

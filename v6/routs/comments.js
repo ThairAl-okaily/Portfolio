@@ -2,18 +2,14 @@
 
 
 var express     = require("express");
-var router      = express.Router();
+var router      = express.Router({mergeParams: true});
 var Tott = require("../models/tott");
 var comment = require("../models/comment");
 
 
 
-
-////             ////
-/// COMMENT ROUTS///
-////            ////
-
-router.get("/talkOfTheTown/:id/comments/new", isLoggedIn, function (req, res) {
+// comments new 
+router.get("/new", isLoggedIn, function (req, res) {
     Tott.findById(req.params.id, function (err, tott) {
         if(err) {
             console.log(err);
@@ -25,8 +21,8 @@ router.get("/talkOfTheTown/:id/comments/new", isLoggedIn, function (req, res) {
     });
 });
 
-
-router.post("/talkOfTheTown/:id/comments", isLoggedIn, function (req, res) {
+// comments creat
+router.post("/", isLoggedIn, function (req, res) {
     Tott.findById(req.params.id, (err, tott) => {
         if(err) {
             console.log(err);
@@ -47,6 +43,8 @@ router.post("/talkOfTheTown/:id/comments", isLoggedIn, function (req, res) {
     });
 });
 
+
+//middle wear
 function isLoggedIn (req, res, nxt){
     if(req.isAuthenticated()){
         return nxt();

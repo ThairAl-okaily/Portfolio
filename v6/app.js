@@ -23,62 +23,62 @@ app.use(express.static(__dirname + "/public"));
 
 
 
-// let seedModel = require("./seeds");
-function seedDB() { 
-    var data = [
-        {
-            class: "Cloud's Rest", 
-            image: "https://farm4.staticflickr.com/3795/10131087094_c1c0a1c859.jpg",
-            rumor: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-        },
-        {
-            class: "Desert Mesa", 
-            image: "https://farm6.staticflickr.com/5487/11519019346_f66401b6c1.jpg",
-            rumor: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-        },
-        {
-            class: "Canyon Floor", 
-            image: "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
-            rumor: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-        }
-    ];
+// // let seedModel = require("./seeds");
+// function seedDB() { 
+//     var data = [
+//         {
+//             class: "Cloud's Rest", 
+//             image: "https://farm4.staticflickr.com/3795/10131087094_c1c0a1c859.jpg",
+//             rumor: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+//         },
+//         {
+//             class: "Desert Mesa", 
+//             image: "https://farm6.staticflickr.com/5487/11519019346_f66401b6c1.jpg",
+//             rumor: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+//         },
+//         {
+//             class: "Canyon Floor", 
+//             image: "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
+//             rumor: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+//         }
+//     ];
 
-//remove all campgrounds 
-    Tott.deleteMany({}, function (er) {
-       if (er) {
-           console.log(er);
-       }
-            console.log("DB removed!!");
-//add a few talks 
-        data.forEach(seed => {
-            Tott.create(seed, (err, e) => {
-                if(err) {
-                    console.log(err);
-                }
-                else {
-                    console.log("added talk");
-//add a few comments 
-                    Comment.create(
-                        {
-                            text: "this place is great, i did not know it before",
-                            auther: "harry"
-                        }, (error, comment) => {
-                            if(error) {
-                                console.log(error);
-                            }
-                            else {
-                                e.comments.push(comment);
-                                e.save();
-                                console.log("added comment");
-                            }  
-                        });
-                }
-            });
-        });
-    });
-   }
-// call seedDB func
-seedDB();
+// //remove all campgrounds 
+//     Tott.deleteMany({}, function (er) {
+//        if (er) {
+//            console.log(er);
+//        }
+//             console.log("DB removed!!");
+// //add a few talks 
+//         data.forEach(seed => {
+//             Tott.create(seed, (err, e) => {
+//                 if(err) {
+//                     console.log(err);
+//                 }
+//                 else {
+//                     console.log("added talk");
+// //add a few comments 
+//                     Comment.create(
+//                         {
+//                             text: "this place is great, i did not know it before",
+//                             auther: "harry"
+//                         }, (error, comment) => {
+//                             if(error) {
+//                                 console.log(error);
+//                             }
+//                             else {
+//                                 e.comments.push(comment);
+//                                 e.save();
+//                                 console.log("added comment");
+//                             }  
+//                         });
+//                 }
+//             });
+//         });
+//     });
+//    }
+// // call seedDB func
+// seedDB();
 
   
 
@@ -162,9 +162,9 @@ passport.deserializeUser(user.deserializeUser());
 
 
 
-app.use(commentsRoute);
-app.use(tottRoute);
-app.use(authRoute);
+app.use("/talkOfTheTown/:id/comments", commentsRoute);
+app.use("/talkOfTheTown", tottRoute);
+app.use("/", authRoute);
 
 
 // node server

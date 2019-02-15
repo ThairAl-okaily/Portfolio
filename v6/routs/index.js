@@ -8,21 +8,17 @@ var user    = require("../models/user");
 
 
 
-// routs
+// root routs
 router.get("/", (request, res) => {
     res.render("landing");
 });
 
-/////////////////
-// AUTH ROUTES ///
-////////////////
-
-// SHOW ROUTE
+// register form ROUTE
 router.get("/register", (req, res) => {
     res.render("register");
 });
 
-//handling sign up post
+//handling sign up rout
 router.post("/register", (req,res) => {
     // req.body.username
     // req.body.password
@@ -59,9 +55,7 @@ router.get("/logout", (req,res) => {
 });
 
 
-///////////////
-//middlewwear///
-//////////////
+//middlewear 
 function isLoggedIn (req, res, nxt){
     if(req.isAuthenticated()){
         return nxt();
