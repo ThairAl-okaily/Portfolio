@@ -8,6 +8,13 @@ var express     = require("express"),
     expressSession   = require("express-session");
 
 
+// requiring Routs 
+let commentsRoute = require("./routs/comments");
+let tottRoute = require("./routs/tott");
+let authRoute = require("./routs/index");
+
+
+
 const Tott = require("./models/tott");
 const Comment = require("./models/comment");
 
@@ -155,164 +162,9 @@ passport.deserializeUser(user.deserializeUser());
 
 
 
-
-
-// routs
-app.get("/", (request, res) => {
-    res.render("landing");
-});
-
-
-
-app.get("/talkOfTheTown", (req, res) => {
-    // console.log("rumors");
-    // res.render("tott", {rum: rumors});
-
-    // get all totts and display them 
-    Tott.find({}, (err, allTotts) => {
-        if(err){
-            console.log(err);
-        }
-        else {
-            res.render("tott/index", {rum: allTotts, currentUser: req.user});
-        }
-    });
-});
-
-
-app.post("/talkOfTheTown", (req, res) => {
-    // get data from form and add to rumors array
-    let name = req.body.name;
-    let bodyOfRumor = req.body.body;
-    let media = req.body.image;
-    let newRumor = {class: name, rumor: bodyOfRumor, media: media};
-    // rumors.push(newRumor);
-    Tott.create(newRumor, (err, newlyRumor) => {
-        if(err){
-            console.log(err);
-        }
-        else {
-                //redirect back to talk of the town page
-                res.redirect("/talkOfTheTown");
-        }
-    });
-    //great new rumor and add to totts
-
-
-});
-
-
-app.get("/talkOfTheTown/new", (req, res) => {
-    res.render("tott/new");
-});
-
-
-app.get("/talkOfTheTown/:id", (req, res) => {
-    Tott.findById(req.params.id).populate("comments").exec((err, foundRumor) => {
-        if(err) {
-            console.log(err);
-        }
-        else {
-            res.render("tott/show", {Tott: foundRumor});
-        }
-    });
-});
-
-
-
-////             ////
-/// COMMENT ROUTS///
-////            ////
-
-app.get("/talkOfTheTown/:id/comments/new", isLoggedIn, function (req, res) {
-    Tott.findById(req.params.id, function (err, tott) {
-        if(err) {
-            console.log(err);
-        }
-        else {
-            // res.render("new.ejs");
-            res.render("comments/new", {tott: tott});
-        }
-    });
-});
-
-
-app.post("/talkOfTheTown/:id/comments", isLoggedIn, function (req, res) {
-    Tott.findById(req.params.id, (err, tott) => {
-        if(err) {
-            console.log(err);
-            res.redirect("/tott");
-        }
-        else {
-            Comment.create(req.body.comments, function (er, com) {
-                if(er) {
-                    console.log(er);
-                } 
-                else {
-                    tott.comments.push(com);
-                    tott.save();
-                    res.redirect("/talkOfTheTown/" + tott._id );
-                }
-            });
-        }
-    });
-});
-
-/////////////////
-// AUTH ROUTES ///
-////////////////
-
-// SHOW ROUTE
-app.get("/register", (req, res) => {
-    res.render("register");
-});
-
-//handling sign up post
-app.post("/register", (req,res) => {
-    // req.body.username
-    // req.body.password
-    let newUser = new user({username: req.body.username});
-    user.register(newUser, req.body.password, (err,usr) => {
-        if(err){
-            console.log(err);
-            return res.render("register");
-        }
-        passport.authenticate("local")(req, res, () => {
-            res.redirect("/talkOfTheTown");
-        });
-    });
-});
-
-
-// LOGIN ROUT 
-app.get("/login", (req,res) => {
-    res.render('login');
-});
-
-//login logic magic
-//middleware
-app.post("/login",passport.authenticate("local", {
-    successRedirect: "/talkOfTheTown",
-    failureRedirect: "/login"
-}), (req,res) => {
-});
-
-//logout rout
-app.get("/logout", (req,res) => {
-    req.logout();
-    res.redirect("/");
-});
-
-
-///////////////
-//middlewwear///
-//////////////
-function isLoggedIn (req, res, nxt){
-    if(req.isAuthenticated()){
-        return nxt();
-    }
-    res.redirect("/login");
-}
+app.use(commentsRoute);
+app.use(tottRoute);
+app.use(authRoute);
 
 
 // node server
