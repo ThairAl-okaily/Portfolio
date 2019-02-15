@@ -112,6 +112,12 @@ app.set(require("express-session")({
 }));
 app.use(passport.initialize());
 app.set(passport.session());
+
+app.use(function (req, res, nxt) { 
+    res.locals.currentUser = req.user;
+    nxt();
+ });
+
 passport.use(new localStratigy(user.authenticate()));
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
@@ -168,7 +174,7 @@ app.get("/talkOfTheTown", (req, res) => {
             console.log(err);
         }
         else {
-            res.render("tott/index", {rum: allTotts});
+            res.render("tott/index", {rum: allTotts, currentUser: req.user});
         }
     });
 });
@@ -218,8 +224,8 @@ app.get("/talkOfTheTown/:id", (req, res) => {
 /// COMMENT ROUTS///
 ////            ////
 
-app.get("/talkOfTheTown/:id/comments/new", function (req, res) {
-    Tott.findById(req.params.id, (err, tott) => {
+app.get("/talkOfTheTown/:id/comments/new", isLoggedIn, function (req, res) {
+    Tott.findById(req.params.id, function (err, tott) {
         if(err) {
             console.log(err);
         }
@@ -228,11 +234,10 @@ app.get("/talkOfTheTown/:id/comments/new", function (req, res) {
             res.render("comments/new", {tott: tott});
         }
     });
-
 });
 
 
-app.post("/talkOfTheTown/:id", function (req, res) {
+app.post("/talkOfTheTown/:id/comments", isLoggedIn, function (req, res) {
     Tott.findById(req.params.id, (err, tott) => {
         if(err) {
             console.log(err);
@@ -299,7 +304,15 @@ app.get("/logout", (req,res) => {
 });
 
 
-
+///////////////
+//middlewwear///
+//////////////
+function isLoggedIn (req, res, nxt){
+    if(req.isAuthenticated()){
+        return nxt();
+    }
+    res.redirect("/login");
+}
 
 
 // node server

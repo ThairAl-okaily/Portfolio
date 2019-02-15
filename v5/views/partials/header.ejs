@@ -15,16 +15,17 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="clearfix" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="#">Sign Up</a>
-        <a class="nav-item nav-link" href="#">Login</a>
-    </div>
+            <% if(!currentUser){ %>
+            <li> <a class="nav-item nav-link float-right active" href="/register">SIGN UP <span class="sr-only">(current)</span></a></li>
+            <li> <a class="nav-item nav-link float-rught" href="/login">LOGIN</a></li>
+            <%  } else { %>
+            <li>signed in as <%= currentUser.username %></li>
+            <li><a class="nav-item nav-link float-right" href="/logout">LOG OUT</a></li>
+            <%  } %>
+        </div>
     </div>
 </nav>
-
-
-
 
 
