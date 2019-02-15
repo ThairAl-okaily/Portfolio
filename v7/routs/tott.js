@@ -23,12 +23,18 @@ router.get("/", (req, res) => {
 });
 
 //CREAT - add new talk
-router.post("/", (req, res) => {
+router.post("/", isLoggedIn, (req, res) => {
     // get data from form and add to rumors array
     let name = req.body.name;
     let bodyOfRumor = req.body.body;
     let media = req.body.image;
-    let newRumor = {class: name, rumor: bodyOfRumor, media: media};
+    //get and link user name to created talk 
+    let auther = {
+        id: req.user._id,
+        username: req.user.username
+    };
+    let newRumor = {class: name, rumor: bodyOfRumor, media: media, auther: auther};
+
     // rumors.push(newRumor);
     Tott.create(newRumor, (err, newlyRumor) => {
         if(err){
@@ -45,7 +51,7 @@ router.post("/", (req, res) => {
 });
 
 //NEW - show form to creat new talk
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
     res.render("tott/new");
 });
 
@@ -62,4 +68,13 @@ router.get("/:id", (req, res) => {
     });
 });
 
+//middle wear
+function isLoggedIn (req, res, nxt){
+    if(req.isAuthenticated()){
+        return nxt();
+    }
+    else {
+    res.redirect("/login");
+    }
+}
 module.exports= router;
