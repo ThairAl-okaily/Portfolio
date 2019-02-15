@@ -104,6 +104,24 @@ app.set("view engine", "ejs");
 
 var user = require("./models/user");
 
+//PASSPORT CONFIGURATION
+app.set(require("express-session")({
+    secret: "shamles i will walk amoge them",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.set(passport.session());
+passport.use(new localStratigy(user.authenticate()));
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+
+
+
+
+
+
+
 
 // // // SCHEMA SETUP
 // var tottSchema = new mongoose.Schema({
@@ -234,6 +252,53 @@ app.post("/talkOfTheTown/:id", function (req, res) {
         }
     });
 });
+
+/////////////////
+// AUTH ROUTES ///
+////////////////
+
+// SHOW ROUTE
+app.get("/register", (req, res) => {
+    res.render("register");
+});
+
+//handling sign up post
+app.post("/register", (req,res) => {
+    // req.body.username
+    // req.body.password
+    let newUser = new user({username: req.body.username});
+    user.register(newUser, req.body.password, (err,usr) => {
+        if(err){
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, () => {
+            res.redirect("/talkOfTheTown");
+        });
+    });
+});
+
+
+// LOGIN ROUT 
+app.get("/login", (req,res) => {
+    res.render('login');
+});
+
+//login logic magic
+//middleware
+app.post("/login",passport.authenticate("local", {
+    successRedirect: "/talkOfTheTown",
+    failureRedirect: "/login"
+}), (req,res) => {
+});
+
+//logout rout
+app.get("/logout", (req,res) => {
+    req.logout();
+    res.redirect("/");
+});
+
+
 
 
 
