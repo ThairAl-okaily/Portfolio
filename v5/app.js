@@ -1,7 +1,12 @@
 var express     = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
-    mongoose    = require("mongoose");
+    mongoose    = require("mongoose"),
+    passport    = require("passport"),
+    localStratigy= require("passport-local"),
+    passportLM    = require("passport-local-mongoose"),
+    expressSession   = require("express-session");
+
 
 const Tott = require("./models/tott");
 const Comment = require("./models/comment");
@@ -97,6 +102,7 @@ mongoose.connect("mongodb://localhost/tott", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
+var user = require("./models/user");
 
 
 // // // SCHEMA SETUP
