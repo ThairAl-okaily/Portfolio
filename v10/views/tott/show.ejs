@@ -24,6 +24,9 @@
                        <em> Submitted by<%= Tott.auther.username %> </em>
                     </p>
                     <a class="btn btn-warning" href="/talkOfTheTown/<%= Tott._id %>/edit">Edit</a>
+                    <form id="delete-form" action="/talkOfTheTown/<%= Tott._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">DELETE</button>
+                    </form>
                     <div class="clearfix" >
                         <h6 class="text-danger float-right">reviws num</h6>
                         <h6 class="text-danger float-left">****** 3.5 stars</h6>

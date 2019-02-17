@@ -3,6 +3,7 @@
 var express     = require("express");
 var router      = express.Router();
 var Tott        = require("../models/tott");
+var comment = require("../models/comment");
 
 
 
@@ -90,6 +91,23 @@ router.put("/:id", (req, res) =>{
         }
         else {
             res.redirect("/talkOfTheTown/" + req.params.id);
+        }
+    });
+});
+
+// DESTROY TALK ROUTE 
+router.delete("/:id", (req, res) =>{
+   Tott.findByIdAndRemove(req.params.id, (er, tot) => {
+        if(er) {
+            res.redirect("/talkOfTheTown");
+        }
+        else {
+            comment.deleteMany({_id: {$in: tot.comments}}, err => {
+                if(err) {
+                    console.log(err);
+                }
+                res.redirect("/talkOfTheTown");
+            });
         }
     });
 });
