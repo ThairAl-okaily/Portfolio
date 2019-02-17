@@ -5,7 +5,9 @@ var express     = require("express"),
     passport    = require("passport"),
     localStratigy= require("passport-local"),
     passportLM    = require("passport-local-mongoose"),
-    expressSession   = require("express-session");
+    expressSession   = require("express-session"),
+    mOverride   = require("method-override");
+
 
 
 // requiring Routs 
@@ -19,6 +21,8 @@ const Tott = require("./models/tott");
 const Comment = require("./models/comment");
 
 app.use(express.static(__dirname + "/public"));
+
+app.use(mOverride("_method"));
 
 
 

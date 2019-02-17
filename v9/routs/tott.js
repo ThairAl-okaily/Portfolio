@@ -68,6 +68,32 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// EDIT TALKE ROUTE
+router.get("/:id/edit", (req, res) => {
+    Tott.findById(req.params.id, (er, foundTott) => {
+        if(er) {
+            res.redirect("/talkOfTheTown");
+        }
+        else {
+            res.render("tott/edit", {tott: foundTott});
+        }
+    });
+});
+
+
+
+// UPDATE TALK ROUTE
+router.put("/:id", (req, res) =>{
+    Tott.findByIdAndUpdate(req.params.id, req.body.tott, (err, updatedTalk) => {
+        if(err) {
+            res.redirect("/talkOfTheTown");
+        }
+        else {
+            res.redirect("/talkOfTheTown/" + req.params.id);
+        }
+    });
+});
+
 //middle wear
 function isLoggedIn (req, res, nxt){
     if(req.isAuthenticated()){
