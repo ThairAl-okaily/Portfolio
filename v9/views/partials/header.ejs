@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <title>Talk Of The Town</title>
+</head>
+<body>
+  
+<nav class="navbar navbar-expand-lg bg-light ">
+    <a class="navbar-brand" href="#">HotPotaTo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="clearfix" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <% if(!currentUser){ %>
+            <li> <a class="nav-item nav-link float-right active" href="/register">SIGN UP <span class="sr-only">(current)</span></a></li>
+            <li> <a class="nav-item nav-link float-rught" href="/login">LOGIN</a></li>
+            <%  } else { %>
+            <li>signed in as  <%= currentUser.username %></li>
+            <li><a class="nav-item nav-link float-right" href="/logout">LOG OUT</a></li>
+            <%  } %>
+        </div>
+    </div>
+</nav>
+
+
