@@ -5,18 +5,18 @@ var express     = require("express");
 var router      = express.Router({mergeParams: true});
 var Tott = require("../models/tott");
 var comment = require("../models/comment");
-
+var user = require("../models/user");
 
 
 // comments new 
-router.get("/new", isLoggedIn, function (req, res) {
-    Tott.findById(req.params.id, function (err, tott) {
+router.get("/new", isLoggedIn, (req, res) => {
+    Tott.findById(req.params.id, (err, tott) => {
         if(err) {
-            console.log(err);
+             console.log(err);
         }
         else {
             // res.render("new.ejs");
-            res.render("comments/new", {tott: tott});
+             res.render("comments/new", {tott: tott});
         }
     });
 });
@@ -29,14 +29,14 @@ router.post("/", isLoggedIn, function (req, res) {
             res.redirect("/tott");
         }
         else {
-            Comment.create(req.body.comments, function (er, com) {
+            comment.create(req.body.comments, function (er, com) {
                 if(er) {
                     console.log(er);
                 } 
                 else {
                     // add user name and id to comments
-                    comment.auther.id = req.user._id;
-                    comment.auther.username = req.user.username;
+                    com.auther.id = req.user._id;
+                    com.auther.username = req.user.username;
                     //save comment
                     com.save();
                     tott.comments.push(com);

@@ -1,8 +1,9 @@
 
 
 var mongoose = require("mongoose");
+var passportML = require("passport-local-mongoose");
  
-var commentSchema = new mongoose.Schema({
+var commentSchema =  mongoose.Schema({
     text: String,
     auther: {
         id: {
@@ -12,5 +13,7 @@ var commentSchema = new mongoose.Schema({
         username: String
     }
 });
+
+commentSchema.plugin(passportML);
  
 module.exports = mongoose.model("Comment", commentSchema);

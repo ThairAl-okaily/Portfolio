@@ -45,7 +45,7 @@ router.get("/login", (req,res) => {
 router.post("/login",passport.authenticate("local", {
     successRedirect: "/talkOfTheTown",
     failureRedirect: "/login"
-}), (req,res) => {
+}), (req, res) => {
 });
 
 //logout rout

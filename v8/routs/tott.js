@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
             console.log(err);
         }
         else {
-            res.render("tott/index", {rum: allTotts, currentUser: req.user});
+            res.render("tott/index", {rum: allTotts});
         }
     });
 });

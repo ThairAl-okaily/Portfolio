@@ -112,13 +112,13 @@ app.set("view engine", "ejs");
 var user = require("./models/user");
 
 //PASSPORT CONFIGURATION
-app.set(require("express-session")({
+app.use(require("express-session")({
     secret: "shamles i will walk amoge them",
     resave: false,
     saveUninitialized: false
 }));
 app.use(passport.initialize());
-app.set(passport.session());
+app.use(passport.session());
 
 app.use(function (req, res, nxt) { 
     res.locals.currentUser = req.user;
