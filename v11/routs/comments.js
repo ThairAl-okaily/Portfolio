@@ -49,7 +49,7 @@ router.post("/", isLoggedIn, function (req, res) {
 });
 
 //comments edit rout 
-router.get("/:comment_id/edit", (req, res) => {
+router.get("/:comment_id/edit", checkCommentOwnership, (req, res) => {
     comment.findById(req.params.comment_id, (er, foundComment) => {
         if(er) {
             res.redirect("back");
@@ -61,7 +61,7 @@ router.get("/:comment_id/edit", (req, res) => {
 });
 
 //comments update route 
-router.put("/:comment_id", (req, res) => {
+router.put("/:comment_id", checkCommentOwnership, (req, res) => {
     comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (er, updatedComment) => {
         if(er) {
             res.redirect("back");
@@ -73,7 +73,7 @@ router.put("/:comment_id", (req, res) => {
 });
 
 //comments destroy  rout 
-router.delete("/:comment_id", (req, res) => {
+router.delete("/:comment_id", checkCommentOwnership, (req, res) => {
     comment.findByIdAndRemove(req.params.comment_id, er => {
         if(er) {
             res.redirect("back");
@@ -94,6 +94,27 @@ function isLoggedIn (req, res, nxt){
     res.redirect("/login");
     }
 }
+
+//check autorization
+function checkCommentOwnership (req, res, next) {
+    if(req.isAuthenticated()){
+        Tott.findById(req.params.comment_id, (er, foundComment) => {
+            if(er) {
+                res.redirect("back");
+            }
+            else {
+                if(foundComment.auther.id.equals(req.user._id)){
+                   next();
+                }else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+}
+
 
 
 module.exports= router;

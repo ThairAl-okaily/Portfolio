@@ -50,6 +50,7 @@
                             <p>
                                 <%= comment.text %>
                             </p>
+                            <% if(currentUser && comment.auther.id.equals(currentUser._id)) { %>
                             <a href="/talkOfTheTown/<%= Tott._id %>/comments/ <%= comment._id %>/edit" 
                                class="btn btn-xs btn-warning">
                                Edit  
@@ -57,6 +58,7 @@
                             <form action="/talkOfTheTown/<%= Tott._id %>/comments/ <%= comment._id %>?_method=DELETE" method="POST" id="commentDeleteForm">
                                 <input class="btn btn-xs btn-danger" type="submit" value="Delete" >
                             </form>
+                            <% } %>
                         </div>
                     </div>
                 <% }) %> 
