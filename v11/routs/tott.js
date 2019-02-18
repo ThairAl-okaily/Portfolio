@@ -4,6 +4,7 @@ var express     = require("express");
 var router      = express.Router();
 var Tott        = require("../models/tott");
 var comment = require("../models/comment");
+var middleware = require("../middleware");
 
 
 
@@ -24,7 +25,7 @@ router.get("/", (req, res) => {
 });
 
 //CREAT - add new talk
-router.post("/", isLoggedIn, (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
     // get data from form and add to rumors array
     let name = req.body.name;
     let bodyOfRumor = req.body.body;
@@ -51,7 +52,7 @@ router.post("/", isLoggedIn, (req, res) => {
 
 
 //NEW - show form to creat new talk
-router.get("/new", isLoggedIn, (req, res) => {
+router.get("/new", middleware.isLoggedIn, (req, res) => {
     res.render("tott/new");
 });
 
@@ -69,14 +70,14 @@ router.get("/:id", (req, res) => {
 });
 
 // EDIT TALKE ROUTE
-router.get("/:id/edit", checkTalkOwnership, (req, res) => {
+router.get("/:id/edit", middleware.checkTalkOwnership, (req, res) => {
     Tott.findById(req.params.id, (er, foundTott) => {
     res.render("tott/edit", {tott: foundTott});
     });
 });
 
 // UPDATE TALK ROUTE
-router.put("/:id", checkTalkOwnership, (req, res) =>{
+router.put("/:id", middleware.checkTalkOwnership, (req, res) =>{
     Tott.findByIdAndUpdate(req.params.id, req.body.tott, (err, updatedTalk) => {
         if(err) {
             res.redirect("/talkOfTheTown");
@@ -88,7 +89,7 @@ router.put("/:id", checkTalkOwnership, (req, res) =>{
 });
 
 // DESTROY TALK ROUTE 
-router.delete("/:id", checkTalkOwnership, (req, res) =>{
+router.delete("/:id", middleware.checkTalkOwnership, (req, res) =>{
    Tott.findByIdAndRemove(req.params.id, (er, tot) => {
         if(er) {
             res.redirect("/talkOfTheTown");
@@ -103,35 +104,5 @@ router.delete("/:id", checkTalkOwnership, (req, res) =>{
         }
     });
 });
-
-//middle wear
-function isLoggedIn (req, res, nxt){
-    if(req.isAuthenticated()){
-        return nxt();
-    }
-    else {
-    res.redirect("/login");
-    }
-}
-
-function checkTalkOwnership (req, res, next) {
-    if(req.isAuthenticated()){
-
-        Tott.findById(req.params.id, (er, foundTott) => {
-            if(er) {
-                res.redirect("back");
-            }
-            else {
-                if(foundTott.auther.id.equals(req.user._id)){
-                   next();
-                }else {
-                    res.redirect("back");
-                }
-            }
-        });
-    } else {
-        res.redirect("back");
-    }
-}
 
 module.exports= router;

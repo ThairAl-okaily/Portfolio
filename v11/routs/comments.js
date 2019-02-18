@@ -6,6 +6,7 @@ var router      = express.Router({mergeParams: true});
 var Tott = require("../models/tott");
 var comment = require("../models/comment");
 var user = require("../models/user");
+var middleware = require("../middleware");
 
 
 // comments new 
@@ -49,7 +50,7 @@ router.post("/", isLoggedIn, function (req, res) {
 });
 
 //comments edit rout 
-router.get("/:comment_id/edit", checkCommentOwnership, (req, res) => {
+router.get("/:comment_id/edit", middleware.checkCommentOwnership, (req, res) => {
     comment.findById(req.params.comment_id, (er, foundComment) => {
         if(er) {
             res.redirect("back");
@@ -61,7 +62,7 @@ router.get("/:comment_id/edit", checkCommentOwnership, (req, res) => {
 });
 
 //comments update route 
-router.put("/:comment_id", checkCommentOwnership, (req, res) => {
+router.put("/:comment_id", middleware.checkCommentOwnership, (req, res) => {
     comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (er, updatedComment) => {
         if(er) {
             res.redirect("back");
@@ -73,7 +74,7 @@ router.put("/:comment_id", checkCommentOwnership, (req, res) => {
 });
 
 //comments destroy  rout 
-router.delete("/:comment_id", checkCommentOwnership, (req, res) => {
+router.delete("/:comment_id", middleware.checkCommentOwnership, (req, res) => {
     comment.findByIdAndRemove(req.params.comment_id, er => {
         if(er) {
             res.redirect("back");
@@ -95,25 +96,7 @@ function isLoggedIn (req, res, nxt){
     }
 }
 
-//check autorization
-function checkCommentOwnership (req, res, next) {
-    if(req.isAuthenticated()){
-        Tott.findById(req.params.comment_id, (er, foundComment) => {
-            if(er) {
-                res.redirect("back");
-            }
-            else {
-                if(foundComment.auther.id.equals(req.user._id)){
-                   next();
-                }else {
-                    res.redirect("back");
-                }
-            }
-        });
-    } else {
-        res.redirect("back");
-    }
-}
+
 
 
 
