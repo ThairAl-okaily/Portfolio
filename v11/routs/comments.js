@@ -1,6 +1,5 @@
 
 
-
 var express     = require("express");
 var router      = express.Router({mergeParams: true});
 var Tott = require("../models/tott");
@@ -10,7 +9,7 @@ var middleware = require("../middleware");
 
 
 // comments new 
-router.get("/new", isLoggedIn, (req, res) => {
+router.get("/new", middleware.isLoggedIn, (req, res) => {
     Tott.findById(req.params.id, (err, tott) => {
         if(err) {
              console.log(err);
@@ -23,7 +22,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 });
 
 // comments creat
-router.post("/", isLoggedIn, function (req, res) {
+router.post("/", middleware.isLoggedIn, function (req, res) {
     Tott.findById(req.params.id, (err, tott) => {
         if(err) {
             console.log(err);
@@ -87,14 +86,14 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, (req, res) => {
 
 
 //middle wear
-function isLoggedIn (req, res, nxt){
-    if(req.isAuthenticated()){
-        return nxt();
-    }
-    else {
-    res.redirect("/login");
-    }
-}
+// function isLoggedIn (req, res, nxt){
+//     if(req.isAuthenticated()){
+//         return nxt();
+//     }
+//     else {
+//     res.redirect("/login");
+//     }
+// }
 
 
 
