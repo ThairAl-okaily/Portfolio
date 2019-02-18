@@ -54,6 +54,9 @@
                                class="btn btn-xs btn-warning">
                                Edit  
                             </a>
+                            <form action="/talkOfTheTown/<%= Tott._id %>/comments/ <%= comment._id %>?_method=DELETE" method="POST" id="commentDeleteForm">
+                                <input class="btn btn-xs btn-danger" type="submit" value="Delete" >
+                            </form>
                         </div>
                     </div>
                 <% }) %> 

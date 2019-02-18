@@ -72,6 +72,17 @@ router.put("/:comment_id", (req, res) => {
     });
 });
 
+//comments destroy  rout 
+router.delete("/:comment_id", (req, res) => {
+    comment.findByIdAndRemove(req.params.comment_id, er => {
+        if(er) {
+            res.redirect("back");
+        } 
+        else {
+            res.redirect("/talkOfTheTown/" + req.params.id);
+        }
+    });
+});
 
 
 //middle wear
