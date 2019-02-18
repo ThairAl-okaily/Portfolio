@@ -47,9 +47,8 @@ router.post("/", isLoggedIn, (req, res) => {
         }
     });
     //great new rumor and add to totts
-
-
 });
+
 
 //NEW - show form to creat new talk
 router.get("/new", isLoggedIn, (req, res) => {
