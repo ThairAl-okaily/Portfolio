@@ -48,6 +48,31 @@ router.post("/", isLoggedIn, function (req, res) {
     });
 });
 
+//comments edit rout 
+router.get("/:comment_id/edit", (req, res) => {
+    comment.findById(req.params.comment_id, (er, foundComment) => {
+        if(er) {
+            res.redirect("back");
+        } 
+        else {
+            res.render("comments/edit", {tott_id: req.params.id, comment: foundComment});
+        }
+    });
+});
+
+//comments update route 
+router.put("/:comment_id", (req, res) => {
+    comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (er, updatedComment) => {
+        if(er) {
+            res.redirect("back");
+        } 
+        else {
+            res.redirect("/talkOfTheTown/" + req.params.id);
+        }
+    });
+});
+
+
 
 //middle wear
 function isLoggedIn (req, res, nxt){
