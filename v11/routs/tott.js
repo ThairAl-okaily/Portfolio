@@ -70,21 +70,14 @@ router.get("/:id", (req, res) => {
 });
 
 // EDIT TALKE ROUTE
-router.get("/:id/edit", (req, res) => {
+router.get("/:id/edit", checkTalkOwnership, (req, res) => {
     Tott.findById(req.params.id, (er, foundTott) => {
-        if(er) {
-            res.redirect("/talkOfTheTown");
-        }
-        else {
-            res.render("tott/edit", {tott: foundTott});
-        }
+    res.render("tott/edit", {tott: foundTott});
     });
 });
 
-
-
 // UPDATE TALK ROUTE
-router.put("/:id", (req, res) =>{
+router.put("/:id", checkTalkOwnership, (req, res) =>{
     Tott.findByIdAndUpdate(req.params.id, req.body.tott, (err, updatedTalk) => {
         if(err) {
             res.redirect("/talkOfTheTown");
@@ -96,7 +89,7 @@ router.put("/:id", (req, res) =>{
 });
 
 // DESTROY TALK ROUTE 
-router.delete("/:id", (req, res) =>{
+router.delete("/:id", checkTalkOwnership, (req, res) =>{
    Tott.findByIdAndRemove(req.params.id, (er, tot) => {
         if(er) {
             res.redirect("/talkOfTheTown");
@@ -121,4 +114,25 @@ function isLoggedIn (req, res, nxt){
     res.redirect("/login");
     }
 }
+
+function checkTalkOwnership (req, res, next) {
+    if(req.isAuthenticated()){
+
+        Tott.findById(req.params.id, (er, foundTott) => {
+            if(er) {
+                res.redirect("back");
+            }
+            else {
+                if(foundTott.auther.id.equals(req.user._id)){
+                   next();
+                }else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
+}
+
 module.exports= router;
