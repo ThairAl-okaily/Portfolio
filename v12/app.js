@@ -1,14 +1,17 @@
 var express     = require("express"),
-    app         = express(),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
     passport    = require("passport"),
     localStratigy= require("passport-local"),
     passportLM    = require("passport-local-mongoose"),
     expressSession   = require("express-session"),
-    mOverride   = require("method-override");
+    mOverride   = require("method-override"),
+    flash       = require("connect-flash");
 
 
+
+
+app.use(flash());
 
 // requiring Routs 
 let commentsRoute = require("./routs/comments");
@@ -19,6 +22,8 @@ let authRoute = require("./routs/index");
 
 const Tott = require("./models/tott");
 const Comment = require("./models/comment");
+
+var app = express();
 
 app.use(express.static(__dirname + "/public"));
 

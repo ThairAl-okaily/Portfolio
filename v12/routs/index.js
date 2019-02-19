@@ -37,7 +37,7 @@ router.post("/register", (req,res) => {
 
 // LOGIN ROUT 
 router.get("/login", (req,res) => {
-    res.render('login');
+    res.render('login', {message: req.flash("error")});
 });
 
 //login logic magic

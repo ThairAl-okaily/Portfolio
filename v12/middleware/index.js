@@ -50,6 +50,7 @@ middlewareObj.isLoggedIn = (req, res, nxt) => {
         return nxt();
     }
     else {
+    req.flash("error", "Please login first");
     res.redirect("/login");
     }
 };
@@ -59,3 +60,4 @@ module.exports = middlewareObj;
 // exports.checkTalkOwnership = checkTalkOwnership;
 // exports.checkCommentOwnership = checkCommentOwnership;
 // exports.isLoggedIn = isLoggedIn;
+
