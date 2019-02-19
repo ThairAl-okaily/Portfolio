@@ -95,8 +95,4 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, (req, res) => {
 //     }
 // }
 
-
-
-
-
 module.exports= router;

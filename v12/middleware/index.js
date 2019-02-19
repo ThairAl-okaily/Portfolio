@@ -2,11 +2,10 @@
 var Tott = require("../models/tott");
 var comment = require("../models/comment");
 // all the middle ware going here 
-
 let middlewareObj = {};
 
 // check talk authorization
-middlewareObj.checkTalkOwnership = (req, res, next) => { ;
+middlewareObj.checkTalkOwnership = (req, res, next) => { 
     if(req.isAuthenticated()){
         Tott.findById(req.params.id, (er, foundTott) => {
             if(er) {
@@ -23,7 +22,7 @@ middlewareObj.checkTalkOwnership = (req, res, next) => { ;
     } else {
         res.redirect("back");
     }
-
+};
 
 //check comment autorization
 middlewareObj.checkCommentOwnership = (req, res, next) => {
@@ -43,7 +42,7 @@ middlewareObj.checkCommentOwnership = (req, res, next) => {
     } else {
         res.redirect("back");
     }
-}
+};
 
 // middle wear
 middlewareObj.isLoggedIn = (req, res, nxt) => {
@@ -53,7 +52,10 @@ middlewareObj.isLoggedIn = (req, res, nxt) => {
     else {
     res.redirect("/login");
     }
-}
+};
 
 
 module.exports = middlewareObj;
+// exports.checkTalkOwnership = checkTalkOwnership;
+// exports.checkCommentOwnership = checkCommentOwnership;
+// exports.isLoggedIn = isLoggedIn;
