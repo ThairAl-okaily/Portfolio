@@ -23,6 +23,7 @@ middlewareObj.checkTalkOwnership = (req, res, next) => { ;
     } else {
         res.redirect("back");
     }
+};
 
 
 //check comment autorization
@@ -43,7 +44,7 @@ middlewareObj.checkCommentOwnership = (req, res, next) => {
     } else {
         res.redirect("back");
     }
-}
+};
 
 // middle wear
 middlewareObj.isLoggedIn = (req, res, nxt) => {
@@ -53,7 +54,7 @@ middlewareObj.isLoggedIn = (req, res, nxt) => {
     else {
     res.redirect("/login");
     }
-}
+};
 
 
 module.exports = middlewareObj;
