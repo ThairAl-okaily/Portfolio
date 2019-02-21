@@ -31,14 +31,17 @@ router.post("/register",
                 (err, usr) => {
                     if(err){
                         req.flash("error",
-                            err);
+                            err.name,
+                            err.message
+                        );
                         return res.render("register");
                     }
                     passport.authenticate("local")(req, res,
                         () => {
                             req.flash("success",
                                 "Welcome to Tlake Of The Town"
-                                + user.username);
+                                + user.username
+                                );
                             res.redirect("/talkOfTheTown");
                 });
         });
@@ -54,7 +57,8 @@ router.get("/login",
 //login logic magic
 //middleware
 router.post("/login",
-    passport.authenticate("local", {
+    passport.authenticate("local",
+        {
         successRedirect: "/talkOfTheTown",
         failureRedirect: "/login"
     }),
@@ -65,7 +69,8 @@ router.post("/login",
 router.get("/logout",
 (req,res) => {
     req.logout();
-    req.flash("success", "logged you out");
+    req.flash("success",
+        "logged you out");
     res.redirect("/");
 });
 
