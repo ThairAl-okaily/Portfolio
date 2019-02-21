@@ -11,7 +11,7 @@ var express     = require("express"),
 
 
 
-app.use(flash());
+
 
 // requiring Routs 
 let commentsRoute = require("./routs/comments");
@@ -30,6 +30,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(mOverride("_method"));
 
 
+app.use(flash());
 
 
 // // let seedModel = require("./seeds");
@@ -131,6 +132,8 @@ app.use(passport.session());
 
 app.use(function (req, res, nxt) { 
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     nxt();
  });
 

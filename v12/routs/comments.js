@@ -9,8 +9,11 @@ var middleware = require("../middleware");
 
 
 // comments new 
-router.get("/new", middleware.isLoggedIn, (req, res) => {
-    Tott.findById(req.params.id, (err, tott) => {
+router.get("/new",
+middleware.isLoggedIn,
+(req, res) => {
+    Tott.findById(req.params.id,
+        (err, tott) => {
         if(err) {
              console.log(err);
         }
@@ -21,16 +24,23 @@ router.get("/new", middleware.isLoggedIn, (req, res) => {
     });
 });
 
+
 // comments creat
-router.post("/", middleware.isLoggedIn, function (req, res) {
-    Tott.findById(req.params.id, (err, tott) => {
+router.post("/",
+middleware.isLoggedIn,
+(req, res) => {
+    Tott.findById(req.params.id,
+        (err, tott) => {
         if(err) {
             console.log(err);
             res.redirect("/tott");
         }
         else {
-            comment.create(req.body.comments, function (er, com) {
+            comment.create(req.body.comments,
+                (er, com) => {
                 if(er) {
+                    req.flash("error",
+                        "Something went Wrong");
                     console.log(er);
                 } 
                 else {
@@ -41,6 +51,8 @@ router.post("/", middleware.isLoggedIn, function (req, res) {
                     com.save();
                     tott.comments.push(com);
                     tott.save();
+                    req.flash("success",
+                        "Successfully added comment");
                     res.redirect("/talkOfTheTown/" + tott._id );
                 }
             });
@@ -48,21 +60,31 @@ router.post("/", middleware.isLoggedIn, function (req, res) {
     });
 });
 
+
 //comments edit rout 
-router.get("/:comment_id/edit", middleware.checkCommentOwnership, (req, res) => {
-    comment.findById(req.params.comment_id, (er, foundComment) => {
+router.get("/:comment_id/edit",
+middleware.checkCommentOwnership,
+(req, res) => {
+    comment.findById(req.params.comment_id,
+        (er, foundComment) => {
         if(er) {
             res.redirect("back");
         } 
         else {
-            res.render("comments/edit", {tott_id: req.params.id, comment: foundComment});
+            res.render("comments/edit",
+            {tott_id: req.params.id, comment: foundComment});
         }
     });
 });
 
+
 //comments update route 
-router.put("/:comment_id", middleware.checkCommentOwnership, (req, res) => {
-    comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (er, updatedComment) => {
+router.put("/:comment_id",
+ middleware.checkCommentOwnership,
+ (req, res) => {
+    comment.findByIdAndUpdate(req.params.comment_id,
+        req.body.comment,
+        (er, updatedComment) => {
         if(er) {
             res.redirect("back");
         } 
@@ -72,13 +94,19 @@ router.put("/:comment_id", middleware.checkCommentOwnership, (req, res) => {
     });
 });
 
+
 //comments destroy  rout 
-router.delete("/:comment_id", middleware.checkCommentOwnership, (req, res) => {
-    comment.findByIdAndRemove(req.params.comment_id, er => {
+router.delete("/:comment_id",
+middleware.checkCommentOwnership,
+(req, res) => {
+    comment.findByIdAndRemove(req.params.comment_id,
+        er => {
         if(er) {
             res.redirect("back");
         } 
         else {
+            req.flash("success",
+                "Comment Deleted");
             res.redirect("/talkOfTheTown/" + req.params.id);
         }
     });
