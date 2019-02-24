@@ -39,8 +39,8 @@ router.post("/register",
                     passport.authenticate("local")(req, res,
                         () => {
                             req.flash("success",
-                                "Welcome to Tlake Of The Town"
-                                + user.username
+                                "Welcome to Tlake Of The Town  "
+                                + usr.username
                                 );
                             res.redirect("/talkOfTheTown");
                 });

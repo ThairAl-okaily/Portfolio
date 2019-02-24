@@ -36,7 +36,7 @@ middleware.isLoggedIn,
             res.redirect("/tott");
         }
         else {
-            comment.create(req.body.comments,
+            comment.create(req.body.comment,
                 (er, com) => {
                 if(er) {
                     req.flash("error",

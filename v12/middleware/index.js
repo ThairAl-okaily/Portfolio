@@ -30,7 +30,7 @@ middlewareObj.checkTalkOwnership = (req, res, next) => {
 //check comment autorization
 middlewareObj.checkCommentOwnership = (req, res, next) => {
     if(req.isAuthenticated()){
-        Tott.findById(req.params.comment_id, (er, foundComment) => {
+        comment.findById(req.params.comment_id, (er, foundComment) => {
             if(er) {
                 res.redirect("back");
             }

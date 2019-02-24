@@ -31,18 +31,20 @@ router.post("/",
 middleware.isLoggedIn,
     (req, res) => {
         // get data from form and add to rumors array
-        let name = req.body.name;
-        let bodyOfRumor = req.body.body;
-        let media = req.body.image;
+        const name = req.body.name;
+        const bodyOfRumor = req.body.bodyOfRumor;
+        const media = req.body.image;
         //get and link user name to created talk 
-        let auther = {
+        const auther = {
             id: req.user._id,
             username: req.user.username
         };
-        let newRumor = {class: name,
+        const newRumor ={
+                        class: name,
                         rumor: bodyOfRumor,
-                        media: media,
-                        auther: auther};
+                        image: media,
+                        auther: auther
+        };
 
         // rumors.push(newRumor);
         Tott.create(newRumor,
