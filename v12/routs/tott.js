@@ -34,6 +34,7 @@ middleware.isLoggedIn,
         const name = req.body.name;
         const bodyOfRumor = req.body.bodyOfRumor;
         const media = req.body.image;
+        const pop = req.body.Fashionableness;
         //get and link user name to created talk 
         const auther = {
             id: req.user._id,
@@ -43,6 +44,7 @@ middleware.isLoggedIn,
                         class: name,
                         rumor: bodyOfRumor,
                         image: media,
+                        popularity : pop,
                         auther: auther
         };
 

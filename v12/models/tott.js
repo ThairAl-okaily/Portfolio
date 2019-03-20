@@ -8,6 +8,7 @@ var tottSchema = new mongoose.Schema({
     class: String,
     rumor: String,
     image: String,
+    Populirity: Number,
     auther: {
        id: {
           type: mongoose.Schema.Types.ObjectId,
