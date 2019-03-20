@@ -2,31 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/main.css">
+    <!-- Make site responsive on mobile/tablet -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Talk Of The Town</title>
 </head>
 <body>
-  
-<nav class="navbar navbar-expand-lg bg-light ">
-    <a class="navbar-brand" href="/talkOfTheTown">HotPotaTo</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="clearfix" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <% if(!currentUser){ %>
-            <li> <a class="nav-item nav-link float-right active" href="/register">SIGN UP <span class="sr-only">(current)</span></a></li>
-            <li> <a class="nav-item nav-link float-rught" href="/login">LOGIN</a></li>
-            <%  } else { %>
-            <li>signed in as  <%= currentUser.username %></li>
-            <li><a class="nav-item nav-link float-right" href="/logout">LOG OUT</a></li>
-            <%  } %>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">HotPotaTo</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="<%= typeof page !== 'undefined' && page === 'talkOfTheTown' ? 'active' : '' %>"><a href="/talkOfTheTown">Home</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <% if(!currentUser){ %>
+                  <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
+                  <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
+              <% } else { %>
+                  <li><a href="#">Signed In As <%= currentUser.username %></a></li>
+                  <li><a href="/logout">Logout</a></li>
+              <% } %>
+          </ul>
         </div>
     </div>
 </nav>
+
+
+
+<div class="container">
 
 <!-- FLASH MESSAGE CONFIG WITH EJS  -->
 <div class="container">

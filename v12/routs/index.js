@@ -17,7 +17,7 @@ router.get("/",
 // register form ROUTE
 router.get("/register",
     (req, res) => {
-        res.render("register");
+        res.render("register", {page: 'register'});
 });
 
 //handling sign up rout
@@ -27,22 +27,19 @@ router.post("/register",
         // req.body.password
         let newUser = new user({username: req.body.username});
         user.register(newUser,
-            req.body.password,
-                (err, usr) => {
-                    if(err){
-                        req.flash("error",
-                            err.name,
-                            err.message
-                        );
-                        return res.render("register");
-                    }
-                    passport.authenticate("local")(req, res,
-                        () => {
-                            req.flash("success",
-                                "Welcome to Tlake Of The Town  "
-                                + usr.username
-                                );
-                            res.redirect("/talkOfTheTown");
+                    req.body.password,
+                    (err, usr) => {
+                        if(err){
+                            console.log(err);
+                            return res.render("register", {error: err.message});
+                        }
+                        passport.authenticate("local")(req, res,
+                            () => {
+                                req.flash("success",
+                                    "Welcome to Tlake Of The Town  "
+                                    + usr.username
+                                    );
+                                res.redirect("/talkOfTheTown");
                 });
         });
 });
@@ -51,7 +48,7 @@ router.post("/register",
 // LOGIN ROUT 
 router.get("/login",
     (req,res) => {
-        res.render('login');
+        res.render('login', {page: "login"});
 });
 
 //login logic magic

@@ -21,7 +21,7 @@ router.get("/",
                     console.log(err);
                 }
                 else {
-                    res.render("tott/index", {rum: allTotts});
+                    res.render("tott/index", {rum: allTotts, page: 'talkOfTheTown'});
                 }
         });
 });
