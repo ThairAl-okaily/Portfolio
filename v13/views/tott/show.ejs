@@ -1,0 +1,68 @@
+
+<% include ../partials/header %>
+
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Talk Of The Town </p>
+            <div class="list-group">
+                <li class="list-group-item active">info</li>
+                <li class="list-group-item">info</li>
+                <li class="list-group-item">info</li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= Tott.image %>" alt="">
+                <div class="caption">
+                    <div class="clearfix" >
+                        <h4 class="pull-right">&#9832; <%= Tott.popularity %></h4>
+                        <h1 class="float-left"> <a href=""><%= Tott.class %></a></h1>
+                    </div>
+                    <p >  <%= Tott.rumor %> </p>
+                    <p>
+                       <em> Submitted by <%= Tott.auther.username %> </em>
+                    </p>
+                    <% if(currentUser && Tott.auther.id.equals(currentUser._id)) { %>
+                    <a class="btn btn-warning" href="/talkOfTheTown/<%= Tott._id %>/edit">Edit</a>
+                    <form id="delete-form" action="/talkOfTheTown/<%= Tott._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">DELETE</button>
+                    </form>
+                    <% } %>
+                    <div class="clearfix" >
+                        <h6 class="text-danger float-right">reviws num</h6>
+                        <h6 class="text-danger float-left">****** 3.5 stars</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <div class=" clearfix">
+                    <a class="btn btn-primary btn-sm btn-block" href='/talkOfTheTown/<%= Tott._id %>/comments/new'>add new comment</a>
+                </div>
+                <hr>
+                <% Tott.comments.forEach( function(comment) { %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>
+                                <%= comment.auther.username %>
+                            </strong>
+                            <span class="float-right">10 days ago</span>
+                            <p>
+                                <%= comment.text %>
+                            </p>
+                            <% if(currentUser && comment.auther.id.equals(currentUser._id)) { %>
+                            <a href="/talkOfTheTown/<%= Tott._id %>/comments/<%= comment._id %>/edit" 
+                               class="btn btn-xs btn-warning">
+                               Edit  
+                            </a>
+                            <form action="/talkOfTheTown/<%= Tott._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" id="commentDeleteForm">
+                                <input class="btn btn-xs btn-danger" type="submit" value="Delete" >
+                            </form>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }) %> 
+            </div>
+        </div>
+    </div>
+    </div>
+<% include ../partials/footer %>

@@ -44,7 +44,7 @@ middleware.isLoggedIn,
                         class: name,
                         rumor: bodyOfRumor,
                         image: media,
-                        pop : pop,
+                        popularity : pop,
                         auther: auther
         };
 

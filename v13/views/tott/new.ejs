@@ -1,0 +1,33 @@
+
+
+
+<% include ../partials/header %>
+
+        <h1 style="text-align: center">We are all ears, Hiss a new RUMOR <small>"from behind the wall"</small></h1>
+
+        <div style="width: 60%; margin: 45px auto;">
+            <form action="/talkOfTheTown" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" placholder= "name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="bodyOfRumor" placeholder="bodyOfRumor">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="number" name="Fashionableness" placeholder="0 or 1" step="1" min="0" max="1" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="image">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-warning btn-block" > Submit </button>
+                </div>
+
+
+            </form>
+            <a href="/talkOfTheTown"> Go back </a>
+       </div>  
+
+
+
+<% include ../partials/footer %>
