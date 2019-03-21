@@ -8,6 +8,9 @@ var tottSchema = new mongoose.Schema({
     class: String,
     rumor: String,
     image: String,
+    location: String,
+    lat: Number,
+    lang: Number,
     Populirity: Number,
     auther: {
        id: {

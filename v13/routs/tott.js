@@ -5,6 +5,17 @@ var router      = express.Router();
 var Tott        = require("../models/tott");
 var comment = require("../models/comment");
 var middleware = require("../middleware");
+var NodeGeocoder = require("node-geocoder");
+
+
+// config Google maps api 
+var option = {
+    provider: 'google',
+    httpAdapter: 'http',
+    apiKey: process.env.GEOCODER_API_KEY,
+    formater: null
+};
+var geocoder = NodeGeocoder(option);
 
 
 
@@ -40,25 +51,40 @@ middleware.isLoggedIn,
             id: req.user._id,
             username: req.user.username
         };
-        const newRumor ={
-                        class: name,
-                        rumor: bodyOfRumor,
-                        image: media,
-                        popularity : pop,
-                        auther: auther
-        };
 
-        // rumors.push(newRumor);
+
+        geocoder.geocode(req.body.location, (err, data) => {
+            if (err || !data.length) {
+                req.flash('error', 'invaled address');
+                return res.redirect('back');
+            }
+            var lat = data[0].latitude;
+            var lng = data[0].longitude;
+            var location = data[0].formattedAddress;
+            
+            const newRumor ={
+                            class: name,
+                            rumor: bodyOfRumor,
+                            image: media,
+                            popularity : pop,
+                            auther: auther,
+                            location: location,
+                            lat: lat,
+                            lng: lng
+            };
+
+                    // rumors.push(newRumor);
         Tott.create(newRumor,
-                (err, newlyRumor) => {
-                    if(err){
-                        console.log(err);
+                (er, newlyRumor) => {
+                    if(er){
+                        console.log(er);
                     }
                     else {
                         //redirect back to talk of the town page
                         res.redirect("/talkOfTheTown");
                     }
                 });
+        });
     //great new rumor and add to totts
 });
 
@@ -101,15 +127,28 @@ middleware.checkTalkOwnership,
 router.put("/:id",
 middleware.checkTalkOwnership,
 (req, res) =>{
-    Tott.findByIdAndUpdate(req.params.id,
-    req.body.tott,
-    (err, updatedTalk) => {
-        if(err) {
-            res.redirect("/talkOfTheTown");
+    geocoder.geocode(req.body.location, (err, data) => {
+        if (err || !data.length) {
+            req.flash('error', 'invaled address');
+            return res.redirect('back');
         }
-        else {
-            res.redirect("/talkOfTheTown/" + req.params.id);
-        }
+        var lat = data[0].latitude;
+        var lng = data[0].longitude;
+        var location = data[0].formattedAddress;
+
+
+        Tott.findByIdAndUpdate(req.params.id,
+        req.body.tott,
+        (er, updatedTalk) => {
+            if(er) {
+                req.flash("error", er.message);
+                res.redirect("/talkOfTheTown");
+            }
+            else {
+                req.flash("success", "Successfully Updated");
+                res.redirect("/talkOfTheTown/" + req.params.id);
+            }
+        });
     });
 });
 

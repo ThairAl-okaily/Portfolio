@@ -19,3 +19,12 @@
 #commentDeleteForm {
     display: inline;
 }
+
+/* Google map */
+
+#map {
+    height: 400px;
+    width: 100px;
+}
+
+/* Google map*/

@@ -9,6 +9,7 @@
                 <li class="list-group-item">info</li>
                 <li class="list-group-item">info</li>
             </div>
+            <div id="map"></div>
         </div>
         <div class="col-md-9">
             <div class="thumbnail">
@@ -64,5 +65,49 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
+
+<script>
+
+    function initMap() {
+        var lat = <%= Tott.lat %>;
+        var lng = <%= Tott.lng %>;
+        var center = {lat: lat, lng: lng};
+    
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: center,
+            zoom: 8,
+            scrollwheel: false
+            });
+
+        var contentString = `
+            <strong>
+                <% Tott.name %>
+                </br> <% Tott.location %> 
+            </strong>
+            <p>
+                <% Tott.description %>
+            </p> `
+
+        var infowindow = new google.maps.infowindow({
+            content: contentString
+        });
+
+        var marker = new google.maps.marker ({
+            position: center,
+            map: map
+        });
+
+        marker.addListener(click, function (){
+            infowindow.open(map, marker)
+        });
+    }
+
+</script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxlsEwstQ02BE2BmckMDuP8d2MPZqwPko&callback=initMap">
+    </script>
+
+
+
 <% include ../partials/footer %>
