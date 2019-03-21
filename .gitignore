@@ -25,4 +25,3 @@
 /vendors/*
 
 .env
-/node_modules
