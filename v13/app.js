@@ -139,6 +139,9 @@ app.set("view engine", "ejs");
 
 var user = require("./models/user");
 
+// Moment js config
+app.locals.moment = require('moment');
+
 //PASSPORT CONFIGURATION
 app.use(require("express-session")({
     secret: "shamles i will walk amoge them",

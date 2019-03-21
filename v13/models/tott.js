@@ -12,6 +12,7 @@ var tottSchema = new mongoose.Schema({
     lat: Number,
     lang: Number,
     Populirity: Number,
+    createdAt: { type: Date, default: Date.now },
     auther: {
        id: {
           type: mongoose.Schema.Types.ObjectId,

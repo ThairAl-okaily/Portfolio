@@ -21,7 +21,7 @@
                     </div>
                     <p >  <%= Tott.rumor %> </p>
                     <p>
-                       <em> Submitted by <%= Tott.auther.username %> </em>
+                        <em>Submitted by: <%= Tott.author.username %>, <%= moment(Tott.createdAt).fromNow() %></em>
                     </p>
                     <% if(currentUser && Tott.auther.id.equals(currentUser._id)) { %>
                     <a class="btn btn-warning" href="/talkOfTheTown/<%= Tott._id %>/edit">Edit</a>
@@ -46,8 +46,7 @@
                             <strong>
                                 <%= comment.auther.username %>
                             </strong>
-                            <span class="float-right">10 days ago</span>
-                            <p>
+                            <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>                            <p>
                                 <%= comment.text %>
                             </p>
                             <% if(currentUser && comment.auther.id.equals(currentUser._id)) { %>
