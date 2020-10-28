@@ -1,14 +1,14 @@
 # Portfolio
 
-## My own website, a simple wbsite perfome some functionalities including singing up to have profile, the ability to make posts with photo beside like and comments on posts, Edite or delete post, Update and delete Profiles and sigining out. the website still under construction and development till deploying.
+## This is my own website - designed to be a simple site that performs certain functions such as a signing up to create a profile, the ability to make posts with a photo, like and comment on posts, edit or delete posts, as well as, editing and deleting, and signing out. This website is still under construction and further development until launch.
 
 
 ### Review:
-###  bulit on **MERN** stack, **RestFull API** style used to provied the transmission between pages smoothly and safe. **NodeJs** is the back engine builte 
-### *Efficient, Secure (passport), Realable, Responsive, Great Performance (Promise & callBack, Async Function)*, Bootstrape and font awesome uesed for styling.
-### I have used Mongodb as database for the create compatibility in MERN and get connected by Mongoose 
-### practiced some SASS and LESS with CSS3 
-### Package.Jason file edited to track the version, show the auther, controling dependencies and forcing there versions.
+### Built on **MERN** stack and using **RestFull API** style to provide a smooth and secure transition between pages. **NodeJs** is the back engine built 
+### *Efficient, Secure (passport), Reliable, Responsive, with Excellent Performance (Promise & callBack, Async Function)*, Bootstrap and 'awesome' font used for styling.
+### I have used Mongodb as a database to create compatibility in MERN and get connected by Mongoose.
+### Practiced some SASS and LESS with CSS3. 
+### Package.Jason file edited to track the version, show the author, controlling dependencies and forcing versions.
 
 
 
