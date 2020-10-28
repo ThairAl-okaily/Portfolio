@@ -1,6 +1,6 @@
 # Portfolio
 
-## This is my own website - designed to be a simple site that performs certain functions such as a signing up to create a profile, the ability to make posts with a photo, like and comment on posts, edit or delete posts, as well as, editing and deleting, and signing out. This website is still under construction and further development until launch.
+## This is my own website - designed to be a simple site that performs certain functions such as signing up to create a profile, the ability to make posts with a photo, like and comment on posts, edit or delete posts, as well as, editing and deleting, and signing out. This website is still under construction and further development until launch.
 
 
 ### Review:
