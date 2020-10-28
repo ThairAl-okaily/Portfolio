@@ -8,15 +8,7 @@
 ### *Efficient, Secure (passport), Realable, Responsive, Great Performance (Promise & callBack, Async Function)*, Bootstrape and font awesome uesed for styling.
 ### I have used Mongodb as database for the create compatibility in MERN and get connected by Mongoose 
 ### practiced some SASS and LESS with CSS3 
-
-
-
- 
-
-
-
-
-
+### Package.Jason file edited to track the version, show the auther, controling dependencies and forcing there versions.
 
 
 
